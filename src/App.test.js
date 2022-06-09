@@ -1,8 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe('App Component' , () => {
+
+    test('renders the navbar content' ,  () => {
+      render(<App/>)
+      const initialText = screen.getByText('newsonline' , {exact : false})
+      expect(initialText).toBeInTheDocument()
+  })   
+
+  test('renders the news platform latst post' , () => {
+    render(<App/>);
+    const newsHeader = screen.getByText('Latest News' , {exact : false});
+    expect(newsHeader).toBeInTheDocument();
+  })
+
+})
+
+
