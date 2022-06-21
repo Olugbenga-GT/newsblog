@@ -23,7 +23,7 @@ function Card(props) {
                                 </p>
                              </span>
                          </div>
-                         <p>5 mins ago</p>
+                         <p>{props.timePublished}</p>
                      </div>
               </article>
        )

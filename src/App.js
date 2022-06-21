@@ -4,6 +4,7 @@ import Card from './UI/Card';
 import { Grid  } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import moment from 'moment'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -15,6 +16,7 @@ function App() {
 
   const [news , setNews] = useState([]);
   const [isLoading , setIsLoading ] = useState(false);
+  const [error , setError] = useState(false);
   const [page , setPage] = useState(1);
 
 
@@ -32,10 +34,13 @@ function App() {
           title: datum.title,
           url : datum.url,
           content: datum.content,
+          timePublished: datum.publishedAt,
         }
       })
       setNews(neededData);
     }catch(error){
+      setIsLoading(false);
+      setError(true);
       console.log(error);
     }
   } , [page])
@@ -51,7 +56,12 @@ useEffect(() =>{
           <nav className="navbar">
             <h3>NewsOnline</h3>
           </nav>
-          {isLoading ? 
+          {error && !isLoading && 
+          <p className='center'>An error occured , please try again.</p>
+          }
+
+          {
+          isLoading && !error ? 
           <p className='center'>   N E W S  &nbsp; &nbsp;  L O A D I N G</p> 
           : 
           <main className="main">
@@ -64,20 +74,19 @@ useEffect(() =>{
                     content = {newsItem.content}
                     title={newsItem.title}
                     id={newsItem.title}
+                    timePublished={moment(newsItem.timePublished).startOf('hour').fromNow()}
                     />
                 </Grid>
                   )}
               </Grid>
           </main>
-          }
-          {!isLoading && 
-          <Stack spacing={2} className='paginate'>
+        }
+            <Stack spacing={2} className='paginate'>
             <Pagination 
             page={page}
             onChange={(e , value) => {
               setPage(value)}}
               count={100} 
-              // count={Math.ceil(news.length + 1)} 
               variant="outlined" 
               shape="rounded" 
               color='primary' 
@@ -90,7 +99,6 @@ useEffect(() =>{
               }}
               />
           </Stack>
-    }
       </section>
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 .card {
     max-width: 25rem;
-    max-height: 14rem;
+    /* max-height: 18rem; */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     border-radius: 6px;
     background-color: white;
@@ -9,15 +9,16 @@
   .card .header{
       border-bottom: 2px solid #e3e3e3;
       padding: .7rem 1rem ;
-      font-size: .8clearrem;
+      font-size: .8rem;
       font-weight: 500;
-
+      min-height: 4rem;
   }
   .card .content{
       padding:  1rem ;
       color: rgba(0, 0, 0, .5);
       font-size: .7rem;
       line-height: 1.5;
+      min-height: 6.5rem;
   }
   .card .base{
       padding:  1rem ;
